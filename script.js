@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s);
-const icons=["🍓","🌸","🍄","🎈","🍊","🍧","🍉","🥝","🌺","🍋","🍀","🧁","💎","👑","🧿","🌙","⭐","🦋","🐚","🌈","🍒","🫐","🥥","🌻","🌷","🍀","🪷","🍭","🧸","🎁","☀️","🪄","🦄","🐝","🍪","🫧","🌟","🍑","🍇","🥭"];
+const icons=["🍓","🌸","🍄","🎈","🍊","🍧","🍉","🥝","🌺","🍋","🍀","🧁","💎","👑","🧿","🌙","⭐","🦋","🐚","🌈","🍒","🫐","🥥","🌻","🌷","🍀","🪷","🍭","🧸","🎁","☀️","🪄","🦄","🐝","🍪","🫧","🌟","🍑","🍇","🥭","🔮","🎃","🪀"];
 const screens={home:$("#home"),map:$("#map"),game:$("#game")};
 function numStore(key, fallback, min=0, max=999999){
   const n=Number(localStorage.getItem(key));
@@ -153,10 +153,10 @@ function updateProgress(){$("#matched").textContent=matched;$("#progress").style
 function updatePowerups(){const prices={undo:50,shuffle:100,hint:50};["undo","shuffle","hint"].forEach(k=>{const b=$("#"+k),c=b.querySelector("b"),s=b.querySelector("small");if(state.pu[k]>0){c.textContent=state.pu[k];s.textContent=k.toUpperCase();b.classList.remove("buy-mode")}else{c.textContent="🪙"+prices[k];s.textContent="BUY";b.classList.add("buy-mode")}})}
 function win(){
   stopMusic(); gameOver=true;clearInterval(timerId);playSound('win');vibrate([35,45,70]);
-  state.coins+=25;const completed=state.level;const chest=completed%25===0; if(chest)state.coins+=100; const next=Math.min(MAX_LEVEL,completed+1);
+  state.coins+=100;const completed=state.level;const chest=completed%25===0; if(chest)state.coins+=100; const next=Math.min(MAX_LEVEL,completed+1);
   if(completed<MAX_LEVEL)state.level=next;save();updateCoins();buildMap();
   const nextButton=completed<MAX_LEVEL?`<button class="modal-action" onclick="closeModal();startLevel(${next})">NEXT LEVEL <span>→</span></button>`:`<button class="modal-action" onclick="closeModal();show('home')">FINISH <span>✓</span></button>`;
-  modal(`<div class="result-burst win-burst">🏆</div><div class="result-label">LEVEL CLEARED</div><h2>Brilliant!</h2><p>Perfect matching. Your reward is ready.</p><div class="big-reward">🪙 +25 Coins${chest?" + 🎁 100 BONUS":""}</div><div class="victory-choice">CHOOSE YOUR NEXT STEP</div>${nextButton}<button class="secondary-action" onclick="closeModal();show('home')">⌂ HOME</button>`);
+  modal(`<div class="result-burst win-burst">🏆</div><div class="result-label">LEVEL CLEARED</div><h2>Brilliant!</h2><p>Perfect matching. Your reward is ready.</p><div class="big-reward">🪙 +100 Coins${chest?" + 🎁 100 BONUS":""}</div><div class="victory-choice">CHOOSE YOUR NEXT STEP</div>${nextButton}<button class="secondary-action" onclick="closeModal();show('home')">⌂ HOME</button>`);
 }
 function lose(title){
   stopMusic(); gameOver=true;clearInterval(timerId);playSound('lose');vibrate([80,40,80]);
